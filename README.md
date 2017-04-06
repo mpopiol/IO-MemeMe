@@ -1,3 +1,3 @@
 # IO-MemeMe
-Pobrać STS: https://spring.io/tools/sts/all
-Pobrać to repo, zaimportować sobie to repo, zmiany commitować i pushować przez konsolę
+Pobrac STS: https://spring.io/tools/sts/all
+Pobrac to repo, zaimportowac sobie to repo, zmiany commitowac i pushowac przez konsole.
