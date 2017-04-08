@@ -3,9 +3,22 @@ package com.meme.mvc;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Properties;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.DriverManager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,17 +29,39 @@ import org.springframework.web.bind.annotation.RequestParam;
 /**
  * Handles requests for the application home page.
  */
+
+
+@PropertySource("classpath:db-conf.properties")
+
 @Controller
 public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
+	@Autowired
+	private Environment env;
 	/**
 	 * Simply selects the home view to render by returning its name.
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	public String home(Locale locale, Model model) throws SQLException, ClassNotFoundException {
+		
+			
 		logger.info("Welcome home! The client locale is {}.", locale);
+		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        Connection connection = null;
+        try {
+    		String url = env.getProperty("ds.connectString");
+	        connection = DriverManager.getConnection(url);
+	        String schema = connection.getSchema();
+	        System.out.println("Successful connection - Schema: " + schema);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
 		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
