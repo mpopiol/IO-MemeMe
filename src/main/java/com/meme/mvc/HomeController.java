@@ -50,11 +50,6 @@ public class HomeController {
 	 */
 	@Autowired
 	private Environment env;
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
-	 */
 	
 	/**
 	 * @param locale - used to show date in users format
