@@ -31,13 +31,23 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 
 
+/**
+ * @author piotr
+ * Main controller - home site
+ */
 @PropertySource("classpath:db-conf.properties")
 
 @Controller
 public class HomeController {
 	
+	/**
+	 * logger used just for debugging purposes
+	 */
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
+	/**
+	 * env variable used to get property - sql connection string
+	 */
 	@Autowired
 	private Environment env;
 	/**
@@ -46,10 +56,15 @@ public class HomeController {
 	 * @throws ClassNotFoundException 
 	 */
 	
+	/**
+	 * @param locale - used to show date in users format
+	 * @param model - used to add element to view
+	 * @return returns view name to redirect to
+	 * @throws SQLException - if connection to database could not be established the exception is threw
+	 * @throws ClassNotFoundException - exception which can be thrown if Sql class is not found
+	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) throws SQLException, ClassNotFoundException {
-		
-			
 		logger.info("Welcome home! The client locale is {}.", locale);
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         Connection connection = null;
@@ -72,10 +87,4 @@ public class HomeController {
 		
 		return "home";
 	}
-	
-	@RequestMapping("/top/{id}")
-    public String top(@PathVariable(value="id") int id, Model model) {
-        model.addAttribute("id", id);
-        return "top";
-    }
 }
