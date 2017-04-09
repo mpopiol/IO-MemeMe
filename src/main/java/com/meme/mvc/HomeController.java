@@ -56,7 +56,7 @@ public class HomeController {
 	 * @param model - used to add element to view
 	 * @return returns view name to redirect to
 	 * @throws SQLException - if connection to database could not be established the exception is threw
-	 * @throws ClassNotFoundException - exception which can be thrown if Sql class is not found
+	 * @throws ClassNotFoundException - exception which can be thrown if SQL class is not found
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) throws SQLException, ClassNotFoundException {
