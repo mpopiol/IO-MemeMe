@@ -68,10 +68,23 @@ public class HomeController {
 	        connection = DriverManager.getConnection(url);
 	        String schema = connection.getSchema();
 	        System.out.println("Successful connection - Schema: " + schema);
+	        
+	        String sqlQuery = "select * from memeset";
+	        
+	        Statement statement = connection.createStatement();
+	        ResultSet resultSet = statement.executeQuery(sqlQuery);
+	        
+	        while (resultSet.next())
+            {
+                System.out.println(resultSet.getString(1) + " "
+                    + resultSet.getString(2) + " 3." + resultSet.getString(3) + " 4." + resultSet.getString(4)
+                    + " 5." + resultSet.getString(5));
+            }
         }
         catch (Exception e) {
             e.printStackTrace();
         }
+	        
 		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
