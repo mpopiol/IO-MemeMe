@@ -3,12 +3,29 @@
 <html>
 <head>
 	<title>Home</title>
+	<style>
+	.meme {
+	    color: blue;
+	}
+	.memeAuthor {
+		color: red;
+	}
+	.memeTitle {
+		color: yellow;
+	}
+	</style>
 </head>
 <body>
-<h1>
-	Hello world!  
-</h1>
-
-<P>  The time on the server is ${serverTime}. </P>
+<c:forEach items="${memeList}" var="item">
+	<div class="meme">
+		<div class="titleSection">
+			<span class="memeTitle">${item.title }</span>
+			<span class="memeAuthor">Autor: ${item.author }</span>
+		</div>
+		<div class="memeContent">
+			${item.content}
+		</div>
+	</div>
+</c:forEach>
 </body>
 </html>

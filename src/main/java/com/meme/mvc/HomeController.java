@@ -1,6 +1,7 @@
 package com.meme.mvc;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Properties;
@@ -25,6 +26,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.meme.models.MemeModel;
 
 /**
  * Handles requests for the application home page.
@@ -74,12 +77,23 @@ public class HomeController {
 	        Statement statement = connection.createStatement();
 	        ResultSet resultSet = statement.executeQuery(sqlQuery);
 	        
+	        ArrayList<MemeModel> memes = new ArrayList<MemeModel>();
+	        
 	        while (resultSet.next())
-            {
-                System.out.println(resultSet.getString(1) + " "
-                    + resultSet.getString(2) + " 3." + resultSet.getString(3) + " 4." + resultSet.getString(4)
-                    + " 5." + resultSet.getString(5));
+            {              
+                MemeModel meme = new MemeModel(
+            		resultSet.getInt(1), 
+            		resultSet.getString(2), 
+            		resultSet.getString(3),
+            		resultSet.getString(4),
+            		resultSet.getDate(5),
+            		resultSet.getDate(6)
+        		);                
+                memes.add(meme);
+                
             }
+	        
+	        model.addAttribute("memeList", memes);
         }
         catch (Exception e) {
             e.printStackTrace();
