@@ -2,7 +2,7 @@ package com.meme.models;
 
 import java.sql.Date;
 
-public class MemeModel {
+public class Meme {
 	private int id;
 	private String title;
 	private String content;
@@ -18,7 +18,7 @@ public class MemeModel {
 	 * @param _createDate
 	 * @param _lastEditDate
 	 */
-	public MemeModel(int _id, String _title, String _content, String _author, Date _createDate, Date _lastEditDate) {
+	public Meme(int _id, String _title, String _content, String _author, Date _createDate, Date _lastEditDate) {
 		super();
 		this.id = _id;
 		this.title = _title;
