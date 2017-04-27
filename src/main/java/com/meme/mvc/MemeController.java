@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.meme.dao.DAOManager;
+import com.meme.dao.IDAOManager;
 import com.meme.dao.MemeDAO;
 import com.meme.enums.Table;
 import com.meme.models.Meme;
@@ -41,7 +42,32 @@ public class MemeController{
 	 */
 	private static final Logger logger = LoggerFactory.getLogger(MemeController.class);
 	
-	private DAOManager dao = DAOManager.getInstance();
+	private IDAOManager dao;
+	
+	public MemeController(IDAOManager _dao){
+		this.dao = _dao;
+	}
+	
+	private MemeController() {
+		this.dao = DAOManager.getInstance();
+	}
+
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String list(Locale locale, Model model) throws SQLException, ClassNotFoundException {
+
+		MemeDAO memeSet = (MemeDAO) dao.getDAO(Table.MEME);
+		
+        model.addAttribute("memeList", memeSet.toList());
+		
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		
+		String formattedDate = dateFormat.format(date);
+		
+		model.addAttribute("serverTime", formattedDate );
+		
+		return "home";
+	}
 	
 	/**
 	 * @param model - used to add element to view
@@ -67,15 +93,9 @@ public class MemeController{
 		return "details";
 	}
 	
-	@RequestMapping(value = "/add3", method = RequestMethod.GET)
-	public String add(Model model)
-	{
-		return "add";
-	}
-	
 	
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
-    public ModelAndView showForm() {
+    public ModelAndView add() {
         return new ModelAndView("add", "meme", new Meme());
     }
     @RequestMapping(value = "/add", method = RequestMethod.POST)

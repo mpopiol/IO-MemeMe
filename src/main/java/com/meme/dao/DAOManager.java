@@ -11,15 +11,19 @@ import org.springframework.core.io.support.PropertiesLoaderUtils;
 
 import com.meme.enums.Table;
 
-public class DAOManager{
+public class DAOManager implements IDAOManager{
 
 	private Connection con = null;
 	public static String url;
 	
-	public static DAOManager getInstance() {
+	public static IDAOManager getInstance() {
         return DAOManagerSingleton.INSTANCE.get();
     }
 	
+	/* (non-Javadoc)
+	 * @see com.meme.dao.IDAOManager#getDAO(com.meme.enums.Table)
+	 */
+	@Override
 	public Object getDAO(Table t) throws SQLException, ClassNotFoundException 
 	{
 
@@ -40,7 +44,11 @@ public class DAOManager{
 
 	}
 
-    public void open() throws SQLException, ClassNotFoundException {
+    /* (non-Javadoc)
+	 * @see com.meme.dao.IDAOManager#open()
+	 */
+    @Override
+	public void open() throws SQLException, ClassNotFoundException {
         try
         {
             if(this.con==null || this.con.isClosed())
@@ -50,7 +58,11 @@ public class DAOManager{
         catch(SQLException e) { throw e; }
     }
 
-    public void close() throws SQLException {
+    /* (non-Javadoc)
+	 * @see com.meme.dao.IDAOManager#close()
+	 */
+    @Override
+	public void close() throws SQLException {
         try
         {
             if(this.con!=null && !this.con.isClosed())

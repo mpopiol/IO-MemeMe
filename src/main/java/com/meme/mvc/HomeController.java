@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.meme.dao.DAOManager;
+import com.meme.dao.IDAOManager;
 import com.meme.dao.MemeDAO;
 import com.meme.enums.Table;
 import com.meme.models.Meme;
@@ -40,7 +41,7 @@ public class HomeController{
 	 */
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
-	private DAOManager dao = DAOManager.getInstance();
+	private IDAOManager dao = DAOManager.getInstance();
 	
 	/**
 	 * @param locale - used to show date in users format
@@ -50,7 +51,7 @@ public class HomeController{
 	 * @throws ClassNotFoundException - exception which can be thrown if SQL class is not found
 	 */
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/oldHome", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) throws SQLException, ClassNotFoundException {
 		logger.info("Welcome home! The client locale is {}.", locale);
 
