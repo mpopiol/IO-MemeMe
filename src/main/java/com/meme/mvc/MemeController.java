@@ -1,9 +1,12 @@
 package com.meme.mvc;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
+import java.lang.reflect.Array;
 import java.sql.SQLException;
 
 import org.slf4j.Logger;
@@ -93,6 +96,26 @@ public class MemeController{
 		return "details";
 	}
 	
+	@RequestMapping(value = "/random", method = RequestMethod.GET)
+	public String random(Model model) throws SQLException, ClassNotFoundException {
+
+		MemeDAO memeSet = (MemeDAO) dao.getDAO(Table.MEME);
+		List<Meme> memes = new ArrayList<Meme>();
+		Meme randomMeme = new Meme();
+		try{
+			memes = memeSet.toList();
+			int count = memes.size();
+			Random generator = new Random(); 
+			int i = generator.nextInt(count);
+			randomMeme = memes.get(i);
+		}
+		catch(SQLException e){
+			model.addAttribute("errorMessage", e.getMessage());
+		}
+        model.addAttribute("meme", randomMeme);
+				
+		return "details";
+	}
 	
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
     public ModelAndView add() {
