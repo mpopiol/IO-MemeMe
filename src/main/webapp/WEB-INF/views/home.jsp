@@ -3,53 +3,33 @@
 <html>
 <head>
 	<title>Home</title>
-	<style>
+	<link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
 	
-	body {
-	  margin:0px;
-	  position:static;
-	  left:auto;
-	  text-align:left;
-	  width: 100%;
-	}
-	
-	.meme {
-	    color: black;
-	    border: solid;
-	    margin:100px auto;
-	    width: 50%;
-	}
-	.titleSection{
-		margin: 20px;
-		border: solid;
-		width: 30%;
-		display: inline-block;
-    	position: relative;
-	}
-	.titleSection span{
-		display:block;
-		text-align: center;
-	}
-	
-	.memeContent {
-		
-		margin: auto;
-		text-align: center
-	}
-	
-	.memeImg{
-		margin: 20px;
-	}
-	
-	.memeInfo{
-		margin: 20px;
-	}
-	</style>
+    <script type="text/javascript"
+            src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script type="text/javascript">
+        $(function () {
+            $('a').each(function () {
+                var inner = $(this).height();
+                var outer = $('header').height();
+                $(this).css({
+                    'padding-top': (outer - inner)/2,
+                    'padding-bottom': (outer - inner)/2
+                });
+            });
+        });
+    </script>
 </head>
 <body>
-	<div>
-		<a href="add">Dodaj</a>
+<header>
+	<div class="topnav">
+		<nav class="menu">
+			<a href="add">Dodaj</a>
+			<a href="login">Zaloguj</a>
+		</nav>
 	</div>
+</header>
+	
 	<c:forEach items="${memeList}" var="item">
 		<div class="meme">
 			<div class="titleSection">

@@ -1,0 +1,84 @@
+body header {
+    top: 0;
+	width: 100%;
+	height: 50px; 
+	background: linear-gradient(grey, darkgrey); 
+	background: rgb(64,0,64);  
+	box-shadow: 2px 3px 4px rgb(51,51,51);
+	position: fixed;
+    overflow: hidden;
+}
+
+
+body .topnav a {
+      float: left;
+      display: block;
+      color: white;
+      padding-left: 10px;
+      padding-right: 10px;
+      text-decoration: none;
+      font-size: 18px;
+      text-align: center;
+      width: 90px; 
+      
+}
+      
+body .topnav a:hover {
+      background-color: rgb(40,0,40);
+      color: white; 
+}
+
+
+
+body {
+	  margin:0px;
+	  position:static;
+	  left:auto;
+	  text-align:left;
+	  width: 100%;
+	  color: white;
+	  font-size: 18px;
+	  background: rgb(95,95,95);
+}
+	
+	.meme {
+	 
+	    border: solid rgb(51,51,51);
+	    margin:100px auto;
+	    width: 50%;
+	    background: rgb(51,51,51); 
+	}
+	.titleSection{
+		margin: 20px;
+		border: solid rgb(51,51,51);
+		width: 30%;
+		display: inline-block;
+    		}
+	.titleSection span{
+		display:block;
+		text-align: center;
+	}
+	
+	.memeTitle{
+		font-weight: bold;
+	}
+	
+	.memeAuthor{
+		font-size: 12px;
+		font-style: italic;
+	}
+	
+	.memeContent {
+		
+		margin: auto;
+		text-align: center
+	}
+	
+	.memeImg{
+		margin: auto;
+		max-width: 90%;
+	}
+	
+	.memeInfo{
+		margin: 20px;
+	}
