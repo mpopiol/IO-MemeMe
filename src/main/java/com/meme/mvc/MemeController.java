@@ -24,7 +24,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.meme.dao.DAOManager;
 import com.meme.dao.IDAOManager;
-import com.meme.dao.MemeDAO;
+import com.meme.dao.IRepository;
+import com.meme.enums.Result;
 import com.meme.enums.Table;
 import com.meme.models.Meme;
 
@@ -45,29 +46,22 @@ public class MemeController{
 	 */
 	private static final Logger logger = LoggerFactory.getLogger(MemeController.class);
 	
-	private IDAOManager dao;
+	private IRepository<Meme> memeSet;
 	
-	public MemeController(IDAOManager _dao){
-		this.dao = _dao;
+	public MemeController(IRepository<Meme> _repo){
+		this.memeSet = _repo;
 	}
 	
-	private MemeController() {
-		this.dao = DAOManager.getInstance();
+	private MemeController() throws ClassNotFoundException, SQLException {
+		IDAOManager dao = DAOManager.getInstance();
+		this.memeSet = (IRepository<Meme>) dao.getDAO(Table.MEME);
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String list(Locale locale, Model model) throws SQLException, ClassNotFoundException {
-
-		MemeDAO memeSet = (MemeDAO) dao.getDAO(Table.MEME);
-		
-        model.addAttribute("memeList", memeSet.toList());
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
+	public String list(Model model){
+				
+		List<Meme> memes = memeSet.toList();
+        model.addAttribute("memeList", memes);
 		
 		return "home";
 	}
@@ -80,38 +74,31 @@ public class MemeController{
 	 */
 	
 	@RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
-	public String details(@PathVariable int id, Model model) throws SQLException, ClassNotFoundException {
-
-		MemeDAO memeSet = (MemeDAO) dao.getDAO(Table.MEME);
-		Meme meme = new Meme();
+	public String details(@PathVariable int id, Model model){
 		
-		try{
-			meme = memeSet.firstOfDefault("id > 0");
+		Meme meme = new Meme();
+		meme = memeSet.firstOfDefault("id > 0");
+		if(meme == null){
+			return "error";
 		}
-		catch(SQLException e){
-			model.addAttribute("errorMessage", e.getMessage());
-		}
+		
         model.addAttribute("meme", meme);
 				
 		return "details";
 	}
 	
 	@RequestMapping(value = "/random", method = RequestMethod.GET)
-	public String random(Model model) throws SQLException, ClassNotFoundException {
-
-		MemeDAO memeSet = (MemeDAO) dao.getDAO(Table.MEME);
+	public String random(Model model){
+		
 		List<Meme> memes = new ArrayList<Meme>();
 		Meme randomMeme = new Meme();
-		try{
-			memes = memeSet.toList();
-			int count = memes.size();
-			Random generator = new Random(); 
-			int i = generator.nextInt(count);
-			randomMeme = memes.get(i);
-		}
-		catch(SQLException e){
-			model.addAttribute("errorMessage", e.getMessage());
-		}
+		memes = memeSet.toList();
+		
+		int count = memes.size();
+		Random generator = new Random(); 
+		int i = generator.nextInt(count);
+		randomMeme = memes.get(i);
+		
         model.addAttribute("meme", randomMeme);
 				
 		return "details";
@@ -119,18 +106,24 @@ public class MemeController{
 	
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
     public ModelAndView add() {
+		
         return new ModelAndView("add", "meme", new Meme());
     }
+	
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String add(@ModelAttribute("meme")Meme meme, 
-      BindingResult result, ModelMap model) throws ClassNotFoundException, SQLException {
+    public String add(@ModelAttribute("meme")Meme meme, BindingResult result, ModelMap model) {
+    	
         if (result.hasErrors()) {
             return "error";
         }
-        MemeDAO memeSet = (MemeDAO) dao.getDAO(Table.MEME);
-		memeSet.add(meme);
-		
-		return "redirect:/";
+        
+		Result res = this.memeSet.add(meme);	
+		if(res == Result.SUCCESS){		
+			return "redirect:/";
+		}
+		else {
+			return "error";
+		}
     }
 	
 	

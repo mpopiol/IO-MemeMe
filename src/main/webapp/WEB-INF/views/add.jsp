@@ -91,7 +91,7 @@ body {
 <header>
 	<div class="topnav">
 		<nav class="menu">
-			<a href=" ">Główna</a>
+			<a href=".">Główna</a>
 			<a href="login">Zaloguj</a>
 		</nav>
 	</div>

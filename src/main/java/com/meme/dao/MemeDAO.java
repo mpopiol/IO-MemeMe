@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import com.meme.enums.Result;
 import com.meme.models.Meme;
 
-public class MemeDAO extends GenericDAO<Meme> {
+public class MemeDAO extends GenericDAO<Meme> implements IRepository<Meme> {
 
 	//Private
 	private final static String TABLENAME = "MemeSet";
@@ -38,8 +38,11 @@ public class MemeDAO extends GenericDAO<Meme> {
     	return meme;
     }
     
+    /* (non-Javadoc)
+	 * @see com.meme.dao.IRespository#count()
+	 */
     @Override
-    public int count() throws SQLException {
+    public int count(){
         String query = "SELECT COUNT(*) FROM " + MemeDAO.TABLENAME;
         PreparedStatement stmt;
         try
@@ -50,10 +53,16 @@ public class MemeDAO extends GenericDAO<Meme> {
         res.next();
         return res.getInt(1);
         }
-        catch(SQLException e){ throw e; }
+        catch(SQLException e){
+        	return 0;
+        }
     }
 
-	public List<Meme> toList() throws SQLException {
+	/* (non-Javadoc)
+	 * @see com.meme.dao.IRespository#toList()
+	 */
+	@Override
+	public List<Meme> toList(){
 		List<Meme> resultList = new ArrayList<Meme>();
 		String query = "SELECT * FROM " + MemeDAO.TABLENAME;
         PreparedStatement stmt;
@@ -70,10 +79,16 @@ public class MemeDAO extends GenericDAO<Meme> {
 	        stmt.close();
 	        return resultList;
         }
-        catch(SQLException e){ throw e; }
+        catch(SQLException e){ 
+        	return null;
+    	}
 	}
 	
-	public Meme firstOfDefault(String where) throws SQLException{
+	/* (non-Javadoc)
+	 * @see com.meme.dao.IRespository#firstOfDefault(java.lang.String)
+	 */
+	@Override
+	public Meme firstOfDefault(String where){
 		String query = "SELECT * FROM " + MemeDAO.TABLENAME + " WHERE " + where;
         PreparedStatement stmt;
         try
@@ -85,9 +100,15 @@ public class MemeDAO extends GenericDAO<Meme> {
 	        stmt.close();
 	        return meme;
         }
-        catch(SQLException e){ throw e; }
+        catch(SQLException e){ 
+        	return null;
+        }
 	}
 
+	/* (non-Javadoc)
+	 * @see com.meme.dao.IRespository#add(com.meme.models.Meme)
+	 */
+	@Override
 	public Result add(Meme meme) {
 		String query = "INSERT INTO "+ MemeDAO.TABLENAME +" ([Title],[Content],[ImgLink],[Details],[Author]) VALUES(" + meme.toString() + ")";
         PreparedStatement stmt;
@@ -109,5 +130,4 @@ public class MemeDAO extends GenericDAO<Meme> {
     		return Result.FAIL;
     	}
 	}
-
 }

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.meme.dao.DAOManager;
 import com.meme.dao.IDAOManager;
-import com.meme.dao.MemeDAO;
+import com.meme.dao.IRepository;
 import com.meme.enums.Table;
 import com.meme.models.Meme;
 
@@ -31,7 +31,6 @@ import com.meme.models.Meme;
  * @author piotr
  * Main controller - home site
  */
-//@PropertySource("classpath:db-conf.properties")
 
 @Controller
 public class HomeController{
@@ -55,7 +54,7 @@ public class HomeController{
 	public String home(Locale locale, Model model) throws SQLException, ClassNotFoundException {
 		logger.info("Welcome home! The client locale is {}.", locale);
 
-		MemeDAO memeSet = (MemeDAO) dao.getDAO(Table.MEME);
+		IRepository memeSet = (IRepository) dao.getDAO(Table.MEME);
 		
         model.addAttribute("memeList", memeSet.toList());
 		
