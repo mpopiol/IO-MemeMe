@@ -76,8 +76,8 @@ public class MemeTest {
 	
 	@Test
 	public void testGetSetTitle5() {
-		meme.setTitle("t e s t !szxczxZüøπ");
-		assertEquals(meme.getTitle(), "t e s t !szxczxZüøπ");
+		meme.setTitle("t e s t !szxczxZ");
+		assertEquals(meme.getTitle(), "t e s t !szxczxZ");
 	}
 
 	@Test
@@ -100,8 +100,8 @@ public class MemeTest {
 	
 	@Test
 	public void testGetSetContent4() {
-		meme.setContent("asxasc xcaszxøücπsπüd13eÊ3234232c34@$@42");
-		assertEquals(meme.getContent(), "asxasc xcaszxøücπsπüd13eÊ3234232c34@$@42");
+		meme.setContent("asxasc xcaszxcsd13e3234232c34@$@42");
+		assertEquals(meme.getContent(), "asxasc xcaszxcsd13e3234232c34@$@42");
 	}
 
 	@Test
@@ -124,8 +124,8 @@ public class MemeTest {
 	
 	@Test
 	public void testGetSetAuthor4() {
-		meme.setAuthor("xú asü πúx πÊπwÍr 233r12!@e!3dè 12ü");
-		assertEquals(meme.getAuthor(), "xú asü πúx πÊπwÍr 233r12!@e!3dè 12ü");
+		meme.setAuthor("x as x wr 233r12!@e!3d 12");
+		assertEquals(meme.getAuthor(), "x as x wr 233r12!@e!3d 12");
 	}
 
 	@Test
@@ -196,8 +196,8 @@ public class MemeTest {
 	
 	@Test
 	public void testGetSetImgLink4() {
-		meme.setImgLink("ascaxczüÊπúxasüqc123 312 ev123sdz  123üø2 12 z#!@er123$!@");
-		assertEquals(meme.getImgLink(), "ascaxczüÊπúxasüqc123 312 ev123sdz  123üø2 12 z#!@er123$!@");
+		meme.setImgLink("ascaxczxasqc123 312 ev123sdz  1232 12 z#!@er123$!@");
+		assertEquals(meme.getImgLink(), "ascaxczxasqc123 312 ev123sdz  1232 12 z#!@er123$!@");
 	}
 	
 	@Test
@@ -220,8 +220,8 @@ public class MemeTest {
 	
 	@Test
 	public void testGetSetDetails4() {
-		meme.setDetails("ascaxczüÊπúxasüqc123 312 ev123sdz  123üø2 12 z#!@er123$!@");
-		assertEquals(meme.getDetails(), "ascaxczüÊπúxasüqc123 312 ev123sdz  123üø2 12 z#!@er123$!@");
+		meme.setDetails("ascaxczxasqc123 312 ev123sdz  1232 12 z#!@er123$!@");
+		assertEquals(meme.getDetails(), "ascaxczxasqc123 312 ev123sdz  1232 12 z#!@er123$!@");
 	}
 
 }
