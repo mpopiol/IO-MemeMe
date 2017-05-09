@@ -19,6 +19,13 @@
                     'padding-bottom': (outer - inner)/2
                 });
             });
+            $("#searchLink").on("click", function() {
+            	window.location.href = "./search/" + $("#query").val();
+            });
+            $("#searchBar").css({
+      			'float': 'right',
+      			'padding-top': 15
+            });
         });
     </script>
 
@@ -95,7 +102,6 @@ body {
 			<a href=".">Główna</a>
 			<a href="add">Dodaj</a>
 			<a href="random">Losowy</a>
-			<a href="login">Zaloguj</a>
 		</nav>
 		</nav>
 	</div>

@@ -120,9 +120,9 @@ body {
 <header>
 	<div class="topnav">
 		<nav class="menu">
-			<a href="..">Główna</a>
-			<a href="../add">Dodaj</a>
-			<a href="../random">Losowy</a>
+			<a href=".">Główna</a>
+			<a href="add">Dodaj</a>
+			<a href="random">Losowy</a>
 			<span class="searchBar" id="searchBar"><input type="text" value="" name="query" id="query"/><button id="searchLink">Szukaj</button></a></span>
 		</nav>
 	</div>

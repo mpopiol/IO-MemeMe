@@ -36,7 +36,7 @@ import com.meme.models.Meme;
 
 /**
  * @author Mariusz
- * Meme controller - CRUD controller
+ * Meme controller - controller
  */
 @Controller
 public class MemeController{
@@ -46,12 +46,25 @@ public class MemeController{
 	 */
 	private static final Logger logger = LoggerFactory.getLogger(MemeController.class);
 	
+	
+	/**
+	 * repository interface
+	 */
 	private IRepository<Meme> memeSet;
 	
+	/**
+	 * constructor for tests
+	 * @param _repo
+	 */
 	public MemeController(IRepository<Meme> _repo){
 		this.memeSet = _repo;
 	}
 	
+	/**
+	 * default constructor
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	private MemeController() throws ClassNotFoundException, SQLException {
 		IDAOManager dao = DAOManager.getInstance();
 		this.memeSet = (IRepository<Meme>) dao.getDAO(Table.MEME);
@@ -66,18 +79,26 @@ public class MemeController{
 		return "home";
 	}
 	
-	/**
-	 * @param model - used to add element to view
-	 * @return returns view name to redirect to
-	 * @throws SQLException - if connection to database could not be established the exception is threw
-	 * @throws ClassNotFoundException - exception which can be thrown if SQL class is not found
-	 */
+	@RequestMapping(value = "/search/{query}", method = RequestMethod.GET)
+	public String search(@PathVariable String query){
+		
+		Meme meme = memeSet.firstOfDefault(
+				"title LIKE N'%" + query + "%' OR "
+				+ "author LIKE N'%" + query + "%' OR "
+				+ "content LIKE N'%" + query + "%' OR "
+				+ "details LIKE N'%" + query + "%'");
+		if(meme == null){
+			return "redirect:/";
+		}
+		else{
+			return "redirect:/details/" + meme.getId();
+		}
+	}
 	
 	@RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
 	public String details(@PathVariable int id, Model model){
 		
-		Meme meme = new Meme();
-		meme = memeSet.firstOfDefault("id > 0");
+		Meme meme = memeSet.firstOfDefault("id =" + id);
 		if(meme == null){
 			return "error";
 		}
@@ -101,7 +122,7 @@ public class MemeController{
 		
         model.addAttribute("meme", randomMeme);
 				
-		return "details";
+		return "random";
 	}
 	
 	@RequestMapping(value = "/add", method = RequestMethod.GET)

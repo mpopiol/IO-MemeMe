@@ -18,6 +18,13 @@
                     'padding-bottom': (outer - inner)/2
                 });
             });
+            $("#searchLink").on("click", function() {
+            	window.location.href = "./search/" + $("#query").val();
+            });
+            $("#searchBar").css({
+      			'float': 'right',
+      			'padding-top': 15
+            });
         });
     </script>
 </head>
@@ -26,17 +33,16 @@
 	<div class="topnav">
 		<nav class="menu">
 			<a href=".">Główna</a>
-			<a href="add">Dodaj</a>
-			<a href="random">Losowy</a>
-			<a href="login">Zaloguj</a>
+			<a href="./add">Dodaj</a>
+			<a href="./random">Losowy</a>			
+			<span class="searchBar" id="searchBar"><input type="text" value="" name="query" id="query"/><button id="searchLink">Szukaj</button></a></span>
 		</nav>
 	</div>
 </header>
-	
 	<c:forEach items="${memeList}" var="item">
 		<div class="meme">
 			<div class="titleSection">
-				<span class="memeTitle">${item.title }</span>
+				<a href="details/${item.id }"><span class="memeTitle">${item.title }</span></a>
 				<span class="memeAuthor">Autor: ${item.author }</span>
 			</div>
 			<div class="memeContent">
@@ -47,6 +53,5 @@
 			</div>
 		</div>
 	</c:forEach>
-
 </body>
 </html>

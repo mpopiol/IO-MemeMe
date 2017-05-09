@@ -2,6 +2,16 @@ package com.meme.models;
 
 import java.sql.Date;
 
+/**
+ * Main model of app
+ */
+
+
+/**
+ * @author Mariusz
+ * Main model
+ */
+
 public class Meme {
 	private int id;
 	private String title;
@@ -31,10 +41,18 @@ public class Meme {
 		this.createDate = _createDate;
 		this.lastEditDate = _lastEditDate;
 	}
+	
+	/**
+	 * @return empty Meme
+	 */
 	public Meme() {
 		// TODO Auto-generated constructor stub
 	}
 	
+	
+	/**
+	 * @return fields values to string
+	 */
 	@Override
 	public String toString(){
 		//[Title],[Content],[ImgLink],[Details],[Author]
