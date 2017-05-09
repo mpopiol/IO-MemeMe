@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page session="false" %>
 <html>
 <head>
@@ -24,7 +25,9 @@
 <header>
 	<div class="topnav">
 		<nav class="menu">
+			<a href=".">Główna</a>
 			<a href="add">Dodaj</a>
+			<a href="random">Losowy</a>
 			<a href="login">Zaloguj</a>
 		</nav>
 	</div>

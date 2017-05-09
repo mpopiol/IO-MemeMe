@@ -91,8 +91,12 @@ body {
 <header>
 	<div class="topnav">
 		<nav class="menu">
+			<nav class="menu">
 			<a href=".">Główna</a>
+			<a href="add">Dodaj</a>
+			<a href="random">Losowy</a>
 			<a href="login">Zaloguj</a>
+		</nav>
 		</nav>
 	</div>
 </header>
